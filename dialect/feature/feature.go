@@ -41,6 +41,7 @@ const (
 	DeleteOrderLimit // DELETE ... ORDER BY ... LIMIT ...
 	DeleteReturning
 	AlterColumnExists // ADD/DROP COLUMN IF NOT EXISTS/IF EXISTS
+	MergeReturning
 )
 
 type NotSupportError struct {

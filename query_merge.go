@@ -214,6 +214,14 @@ func (q *MergeQuery) AppendQuery(fmter schema.Formatter, b []byte) (_ []byte, er
 		}
 	}
 
+	if q.hasFeature(feature.MergeReturning) && q.hasReturning() {
+		b = append(b, " RETURNING "...)
+		b, err = q.appendReturning(fmter, b)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	// A MERGE statement must be terminated by a semi-colon (;).
 	b = append(b, ";"...)
 
@@ -252,7 +260,7 @@ func (q *MergeQuery) scanOrExec(
 		return nil, err
 	}
 
-	useScan := hasDest || (q.hasReturning() && q.hasFeature(feature.InsertReturning|feature.Output))
+	useScan := hasDest || (q.hasReturning() && q.hasFeature(feature.InsertReturning|feature.MergeReturning|feature.Output))
 	var model Model
 
 	if useScan {

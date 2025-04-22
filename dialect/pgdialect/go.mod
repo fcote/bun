@@ -1,12 +1,15 @@
 module github.com/uptrace/bun/dialect/pgdialect
 
-go 1.22.0
+go 1.23.0
+
+toolchain go1.24.2
 
 replace github.com/uptrace/bun => ../..
 
 require (
 	github.com/stretchr/testify v1.8.1
 	github.com/uptrace/bun v1.2.11
+	golang.org/x/mod v0.24.0
 )
 
 require (
